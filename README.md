@@ -1,4 +1,4 @@
-# Rnm API
+# Rnm
 Rick &amp; Morty API web app.
 
 https://rnm.netlify.app
