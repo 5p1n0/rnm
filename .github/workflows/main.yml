@@ -1,0 +1,53 @@
+name: ci
+on: [push]
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install and run Cypress tests
+        uses: cypress-io/github-action@v4
+        with:
+          start: npm start
+
+      - name: Upload Argos screenshots
+        run: npx @argos-ci/cli upload cypress/screenshots
+        env: 
+          ARGOS_TOKEN: 8ff58039d8b801b0d50a57751161798aaa21785c 
+
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Install NPM dependencies 
+        uses: bahmutov/npm-install@v1
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+
+      - name: Run Jest tests 
+        run: npm test
+
+  scripts:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Install NPM dependencies 
+        uses: bahmutov/npm-install@v1
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+
+      - name: Run Prettify
+        run: npm run prettify
+
+      - name: Run tsc type checking
+        run: npm run check
+
+      - name: Run Eslint
+        run: npm run lint
+     

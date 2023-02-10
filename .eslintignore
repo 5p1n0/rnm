@@ -1,0 +1,6 @@
+*.js
+*.json
+*.config.*
+node_modules
+dist
+*.test.*
